@@ -457,6 +457,7 @@ body {
 
 .hey {
 	&__container {
+		@include adaptiv-value("padding-bottom", 146, 56, 1);
 	}
 
 	&__info {
@@ -563,7 +564,6 @@ body {
 
 .our-works {
 	&__container {
-		@include adaptiv-value("padding-top", 146, 56, 1);
 	}
 }
 

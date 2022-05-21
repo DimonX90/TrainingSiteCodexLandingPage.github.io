@@ -885,6 +885,16 @@ html, body {
           animation: movingImagetr 6s linear infinite;
 }
 
+.hey__container {
+  padding-bottom: 146px;
+}
+
+@media (max-width: 1200px) {
+  .hey__container {
+    padding-bottom: calc(56px + 90 * ((100vw - 320px) / 880));
+  }
+}
+
 .hey__info {
   margin-top: 77px;
   text-align: center;
@@ -1060,16 +1070,6 @@ html, body {
 @media (max-width: 1200px) {
   .hey-item__text {
     line-height: calc(18px + 8 * ((100vw - 320px) / 880));
-  }
-}
-
-.our-works__container {
-  padding-top: 146px;
-}
-
-@media (max-width: 1200px) {
-  .our-works__container {
-    padding-top: calc(56px + 90 * ((100vw - 320px) / 880));
   }
 }
 

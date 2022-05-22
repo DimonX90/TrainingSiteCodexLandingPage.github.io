@@ -269,15 +269,7 @@ document.addEventListener('click', function (e) {
 		}
 	}
 })
-//scroll image
 
-
-function ofsset(el) {
-	const rect = el.getBoundingClientRect(),
-		scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-		scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-	return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
-};
 
 
 //===================
@@ -285,9 +277,7 @@ function ofsset(el) {
 window.addEventListener("load", function (e) {
 
 	const firstSection = document.querySelector('.page__expirience');
-	const header = document.querySelector('.header');
 	firstSection.classList.add('_active');
-	header.classList.add('_active');
 	//Смена категорий=================================
 	let categoriesList = document.querySelector('.hey__buttons');
 	categoriesList.addEventListener('click', function (e) {
@@ -335,6 +325,8 @@ window.addEventListener("load", function (e) {
 			getArtistAtr('jack');
 		}
 	}
+
+
 	//формирование категорий
 	function loadArtist(data, atr) {
 
@@ -355,7 +347,7 @@ window.addEventListener("load", function (e) {
 			<div class="hey-item__title animate__animated 
 			animate__pulse">${artistTitle}</div>
 			<div class="hey-item__text animate__animated 
-			animate__pulse">${artistText}`;
+			animate__pulse">${artistText}</div>`;
 
 				artist.insertAdjacentHTML('beforeEnd', artistTemplate);
 				image.insertAdjacentHTML('beforeEnd', imageTemplate);
@@ -378,6 +370,66 @@ window.addEventListener("load", function (e) {
 		}
 	};
 	getArtistAtr('jack');
+	let headerScroll = pageYOffset;
+	document.addEventListener('scroll', function () {
+		//Animation scroll=================================
+		const animItems = document.querySelectorAll('._animeItem');
+
+		if (animItems.length > 0) {
+			function animOnScroll(params) {
+				for (let index = 0; index < animItems.length; index++) {
+					const animItem = animItems[index];
+					const animItemHeight = animItem.offsetHeight;
+					const animItemOffset = ofsset(animItem).top;
+					const animStart = 4;
+
+					let animItemPoint = window.innerHeight - animItemHeight / animStart;
+					if (animItemHeight > window.innerHeight) {
+						animItemPoint = window.innerHeight - window.innerHeight / animStart;
+					}
+
+					if ((pageYOffset > animItemOffset - animItemPoint) && pageYOffset < (animItemOffset + animItemHeight)) {
+
+						if (!animItem.classList.contains('_active')) {
+							animItem.classList.add('_active');
+						}
+					} else {
+						animItem.classList.remove('_active');
+					}
+				}
+			}
+			function ofsset(el) {
+				const rect = el.getBoundingClientRect(),
+					scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+					scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+				return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+			}
+		}
+		animOnScroll();
+		//====================================================
+		//Header fix
+
+		const headerElement = document.querySelector('.header');
+
+		const callback = function (entries, observer) {
+			if (entries[0].isIntersecting) {
+				headerElement.classList.remove('_scroll');
+			} else {
+				headerElement.classList.add('_scroll');
+			}
+		};
+
+		const headerObserver = new IntersectionObserver(callback);
+		headerObserver.observe(headerElement);
+		const headerWrapper = document.querySelector('.header__wrapper');
+		if (pageYOffset > headerScroll) {
+			headerWrapper.classList.add('_hide');
+		} else {
+			headerWrapper.classList.remove('_hide');
+		}
+		headerScroll = pageYOffset;
+		//==========================================================
+	})
 	//==================================================================
 	//Добавление коллескций
 	//формирование коллекций
@@ -474,46 +526,14 @@ window.addEventListener("load", function (e) {
 	})
 })
 
-
-
-document.addEventListener('scroll', function () {
-	//Animation scroll=================================
-	const animItems = document.querySelectorAll('._animeItem');
-
-	if (animItems.length > 0) {
-		function animOnScroll(params) {
-			for (let index = 0; index < animItems.length; index++) {
-				const animItem = animItems[index];
-				const animItemHeight = animItem.offsetHeight;
-				const animItemOffset = ofsset(animItem).top;
-				const animStart = 4;
-
-				let animItemPoint = window.innerHeight - animItemHeight / animStart;
-				if (animItemHeight > window.innerHeight) {
-					animItemPoint = window.innerHeight - window.innerHeight / animStart;
-				}
-
-				if ((pageYOffset > animItemOffset - animItemPoint) && pageYOffset < (animItemOffset + animItemHeight)) {
-					if (!animItem.classList.contains('_active')) {
-						animItem.classList.add('_active');
-					}
-				} else {
-					animItem.classList.remove('_active');
-				}
-			}
-		}
-		function ofsset(el) {
-			const rect = el.getBoundingClientRect(),
-				scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-				scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-			return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
-		}
-	}
-	animOnScroll();
-	//====================================================
-})
-
-
-//============================================
-
 //==================================================
+///BurgerMenu============================================
+var burger = document.querySelector(".icon-menu");
+var burgerBody = document.querySelector(".header__menu")
+burger.addEventListener("click", function (e) {
+	burger.classList.toggle("menu-open");
+	burgerBody.classList.toggle("_active")
+	document.querySelector('.header__button').classList.toggle('_active');
+	document.querySelector('.header__socials').classList.toggle('_active');
+}
+)

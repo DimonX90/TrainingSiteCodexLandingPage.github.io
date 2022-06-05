@@ -1365,41 +1365,4 @@ body {
 	}
 }
 
-.down-footer {
-	max-height: 180px;
-	&__body {
-		display: flex;
-		justify-content: space-between;
-		padding: 0 64px 45px 64px;
-		@media (max-width: $md3+px) {
-			padding-right: 10px;
-			padding-left: 10px;
-			flex-direction: column;
-			gap: 10px;
-			align-items: center;
-		}
-	}
-
-	&__rights {
-		letter-spacing: 0.48px;
-		font-size: 14px;
-		line-height: 16px;
-	}
-
-	&__created {
-		letter-spacing: 0.48px;
-		font-size: 15px;
-		line-height: 16px;
-		a {
-			color: #ff7f96;
-			transition: all 0.3s ease 0s;
-			@media (any-hover: hover) {
-				&:hover {
-					font-size: 20px;
-				}
-			}
-		}
-	}
-}
-
 //======================================
